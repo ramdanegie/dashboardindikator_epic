@@ -1,0 +1,76 @@
+<!-- <div class="hold-transition login-page " [ngStyle]="{background: 'url(assets/img/welcomeScreenNew.jpg)'}"> -->
+<div class="hold-transition login-page ">
+  <div class="login-box">
+    <div class="login-logo">
+      <a routerLink="/home">
+        <div [style.color]="'grey'"> <b>Rensar</b> Medifirst2000</div>
+      </a>
+    </div>
+    <!-- <p-toast></p-toast> -->
+    <p-growl></p-growl>
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div class="box box-info">
+          <div class="box-header">
+            <!-- <i class="fa fa-user"></i> -->
+            <h3 class="box-title"></h3>
+            <div class="box-tools pull-right">
+              <!-- <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+                <button class="btn btn-default btn-sm" (click)="showAndHide()" data-widget="collapse">
+                  <i class="fa fa-minus"></i>
+                </button>
+  
+              </div> -->
+            </div>
+          </div>
+          <div class="box-body chart-responsive" id="boxCollapse">
+            <div class="ui-g-12">
+              <!-- <mat-card class="example-card"> -->
+              <mat-card-header>
+                <mat-card-title>Silahkan Login</mat-card-title>
+              </mat-card-header>
+              <p-progressSpinner *ngIf="showLoading" class="loading-style"></p-progressSpinner>
+              <mat-card-content>
+                <form class="example-form">
+
+                  <table class="example-full-width" cellspacing="0">
+                    <tr>
+                      <td>
+                        <mat-form-field class="example-full-width">
+                          <input (keydown)="keyDownFunction($event)" matInput placeholder="Username" [(ngModel)]="username"
+                            name="username" required>
+                        </mat-form-field>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-form-field class="example-full-width">
+                          <input (keydown)="keyDownFunction($event)" matInput placeholder="Password" [(ngModel)]="password"
+                            type="password" name="password" required>
+                        </mat-form-field>
+                      </td>
+                    </tr>
+                  </table>
+
+                </form>
+                <mat-checkbox class="example-margin" [(ngModel)]="checked">Ingatkan Saya</mat-checkbox>
+                <!-- <mat-spinner></mat-spinner> -->
+
+                <mat-card-actions>
+                  <!-- <div class="ui-g-12"> -->
+                    <div class="ui-g-3 ui-g-offset-8">
+                        <button pButton label="Login" icon="fa fa-angle-right" class="ui-button-primary" (click)="login()" (keydown)="keyDownFunction($event)"></button>
+                    </div>
+                  <!-- </div> -->
+                  <!-- <button mat-raised-button (click)="login()"  (keydown)="keyDownFunction($event)" color="primary">Login</button> -->
+                </mat-card-actions>
+              </mat-card-content>
+            </div>
+            <!-- </mat-card> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

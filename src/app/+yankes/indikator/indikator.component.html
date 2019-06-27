@@ -1,0 +1,135 @@
+<!-- <p-growl [style]="{marginTop: '20px'}" position="top-left"></p-growl> -->
+<section class="content-header">
+</section>
+<section class="content">
+  <div class="row">
+    <div class="col-md-12 col-xs-12">
+      <div class="box box-info">
+        <div class="box-header">
+          <i class="fa fa-bar-chart"></i>
+          <h3 class="box-title">Indikator</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+                <button class="btn btn-default btn-sm" (click)="showAndHide()" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                  </button>
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive" id="boxCollapse">
+          <p-panel>
+            <p-header>
+              <div class="ui-helper-clearfix">
+                <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Daftar
+                  Indikator</span>
+              </div>
+            </p-header>
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12 ui-md-3">
+                <label for="input">Tahun</label>
+                <p-calendar [(ngModel)]="tahun" [showIcon]="true" pTooltip="Tahun" tooltipPosition="top" view="month"
+                  dateFormat="yy" dataType="string" [yearNavigator]="true" [monthNavigator]="false" yearRange="2000:2030"></p-calendar>
+                <!-- <p-calendar [(ngModel)]="tanggal" [showIcon]="true" dateFormat="dd-mm-yy"></p-calendar> -->
+              </div>
+              <div class="ui-g-12 ui-md-1" style="margin-top:25px">
+                <button pButton (click)="Cari()" label="Cari" icon="fa fa-search"></button>
+              </div>
+            </div>
+            <p-table #dt [columns]="column" [value]="dataSource" [rows]="5" [paginator]="true" [rowsPerPageOptions]="[5,10,20]"
+              [loading]="loading" loadingIcon="fa fa-spinner" [(selection)]="selected">
+              <ng-template pTemplate="caption">
+                <div style="text-align: right">
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th style="width:4em">No</th>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                  </th>
+                  <th style="width:15em"></th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-index="rowIndex+1" let-rowData let-columns="columns">
+                <tr>
+                  <td>
+                    {{index}}
+                  </td>
+                  <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                  </td>
+                  <td>
+                    <button pButton icon="fa fa-edit" label="Rubah" (click)="Ubah(rowData)"></button>
+                    &nbsp;
+                    <button pButton icon="fa fa-trash-o" label="Hapus" (click)="Hapus(rowData)"></button>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="summary" let-rowData>
+                <div style="text-align:left">
+                  <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Tambah"></button>
+                </div>
+              </ng-template>
+            </p-table>
+          </p-panel>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p-dialog header="" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+  [width]="500" [minWidth]="80" [minY]="30" [maximizable]="true" [baseZIndex]="8000" [positionTop]="80" appendTo="body">
+  <div class="ui-g-12">
+    <div class="ui-g ui-fluid">
+      <form [formGroup]="formTambah" (ngSubmit)="simpan()">
+        <div class="ui-g-12">
+          <p-fieldset legend="Masukan Data">
+              <div class="ui-g-12 ui-md-12">
+                <label for="input">Kode</label>
+                <input type="text" formControlName="kode" pInputText disabled />
+              </div>
+              <div class="ui-g-12 ui-md-12">
+                <label for="input">Periode</label>
+                <p-calendar formControlName="periode" [showIcon]="true" pTooltip="Tahun" tooltipPosition="top" view="month"
+                  dateFormat="mm-yy" [yearNavigator]="true" [monthNavigator]="false" yearRange="2000:2030"></p-calendar>
+
+              </div>
+              <div class="ui-g-12 ui-md-4">
+                <label for="input">BOR</label>
+                <input type="text" uppercase formControlName="bor" pInputText />
+              </div>
+              <div class="ui-g-12 ui-md-4">
+                <label for="input">ALOS</label>
+                <input type="text" uppercase formControlName="alos" pInputText />
+              </div>
+              <div class="ui-g-12 ui-md-4">
+                <label for="input">TOI</label>
+                <input type="text" uppercase formControlName="bto" pInputText />
+              </div>
+              <div class="ui-g-12 ui-md-4">
+                <label for="input">TOI</label>
+                <input type="text" uppercase formControlName="toi" pInputText />
+              </div>
+              <div class="ui-g-12 ui-md-4">
+                <label for="input">NDR</label>
+                <input type="text" uppercase formControlName="ndr" pInputText />
+              </div>
+              <div class="ui-g-12 ui-md-4">
+                <label for="input">GDR</label>
+                <input type="text" uppercase formControlName="gdr" pInputText />
+              </div>
+            </p-fieldset>
+          </div>
+          <div class="ui-g-12">
+            <div class="ui-g-3 ui-g-offset-6">
+              <button pButton type="submit" label="Simpan" icon="fa fa-save"></button>
+            </div>
+            <div class="ui-g-3">
+              <button pButton type="button" (click)="displayDialog = false" label="Tutup" icon="fa fa-angle-left"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-dialog>
+
+</section>

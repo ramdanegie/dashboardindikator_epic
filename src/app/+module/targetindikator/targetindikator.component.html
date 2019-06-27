@@ -1,0 +1,161 @@
+<p-growl [style]="{marginTop: '20px'}" position="top-left"></p-growl>
+<section class="content-header">
+  <h1>
+    Rensar
+    <small>{{now |date}}</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a routerLink="/targetindikator"><i class="fa fa-home"></i>Target Indikator </a></li>
+    <!-- <li class="active">Dashboard</li> -->
+  </ol>
+</section>
+<section class="content">
+  <div class="row">
+    <div class="col-md-12 col-xs-12">
+      <div class="box box-info">
+        <div class="box-header">
+          <i class="fa fa-th"></i>
+          <h3 class="box-title">Input Target Indikator</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <p-panel>
+            <p-header>
+              <div class="ui-helper-clearfix">
+                <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Daftar Target</span>
+              </div>
+            </p-header>
+            <!-- <div class="ui-g"> -->
+            <!-- <div class="ui-g-12"> -->
+            <p-table #dt [columns]="column" [value]="dataSource" [rows]="5" [paginator]="true" [rowsPerPageOptions]="[5,10,20]"
+              [loading]="loading" loadingIcon="fa fa-spinner" [(selection)]="selected">
+
+              <ng-template pTemplate="caption">
+                <div style="text-align: right">
+                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                  <input type="text" pInputText size="40" placeholder="Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    style="width:auto">
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th style="width:4em">No</th>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                  </th>
+                  <th style="width:15em"></th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-index="rowIndex+1" let-rowData let-columns="columns">
+                <tr>
+                  <td>
+                    {{index}}
+                  </td>
+                  <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                  </td>
+                  <td>
+                    <button pButton icon="fa fa-edit" label="Rubah" (click)="Ubah(rowData)"></button>
+                    &nbsp;
+                    <button pButton icon="fa fa-trash-o" label="Hapus" (click)="Hapus(rowData)"></button>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="summary" let-rowData>
+                <div style="text-align:left">
+                  <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Tambah"></button>
+                </div>
+              </ng-template>
+            </p-table>
+            <div class="ui-g-12">
+              <!-- <div class="ui-g-1 ui-g-offset-9">
+                <button pButton type="button" label="Tambah" (click)="showDialogToAdd()" icon="fa fa-plus"></button>
+              </div> -->
+              <!-- <div class="ui-g-1">
+                <button pButton type="button" label="Rubah" icon="fa fa-edit" (click)="Ubah(selected)"></button>
+              </div>
+              <div class="ui-g-1">
+                <button pButton type="button" label="Hapus" icon="fa fa-trash-o" (click)="Hapus(selected)"></button>
+              </div> -->
+            </div>
+          </p-panel>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p-dialog header="Tambah Data" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+    [width]="500" [minWidth]="80" [minY]="30" [maximizable]="true" [baseZIndex]="8000" [positionTop]="80" appendTo="body">
+    <div class="ui-g-12">
+      <div class="ui-g ui-fluid">
+        <form [formGroup]="formTambah" (ngSubmit)="simpan()">
+          <div class="ui-g-12">
+            <p-fieldset legend="Data Target">
+              <div class="ui-g-12 ui-md-12">
+                <label for="input">ID</label>
+                <input type="text" formControlName="Id" pInputText disabled />
+              </div>
+              <div class="ui-g-12 ui-md-12">
+                <label for="input">Indikator</label>
+                <p-dropdown formControlName="Indikator" [filter]="true" [options]="d_Indikator" [autoWidth]="false"></p-dropdown>
+                <!-- <p-dropdown [options]="cities2" formControlName="Indikator" [style]="{'width':'150px'}"  optionLabel="name"></p-dropdown> -->
+              </div>
+              <div class="ui-g-12 ui-md-12">
+                <label for="input">Tahun</label>
+                <!-- <p-calendar 
+                  dateFormat="yy" [showIcon]="true" [monthNavigator]="true" yearRange="2000:2030"
+                  [showTime]="true"></p-calendar> -->
+                <p-calendar formControlName="Tahun" [showIcon]="true" pTooltip="Tahun Target Indikator" tooltipPosition="top"
+                  view="month" dateFormat="yy"  dataType="string" [yearNavigator]="true"  [monthNavigator]="false" yearRange="2000:2030"></p-calendar>
+              </div>
+              <div class="ui-g-12 ui-md-12">
+                <label for="input">Target</label>
+                <input type="text" uppercase formControlName="Target" pInputText />
+              </div>
+              <div class="ui-g-12 ui-md-12">
+                <label for="input">Keterangan</label>
+                <input type="text" uppercase formControlName="Keterangan" pInputText />
+              </div>
+            </p-fieldset>
+          </div>
+
+          <div class="ui-g-12">
+            <div class="ui-g-3 ui-g-offset-6">
+              <button pButton type="submit" label="Simpan" icon="fa fa-save"></button>
+            </div>
+            <div class="ui-g-3">
+              <button pButton type="button" (click)="displayDialog = false" label="Tutup" icon="fa fa-angle-left"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-dialog>
+
+</section>

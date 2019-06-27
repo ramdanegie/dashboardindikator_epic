@@ -1,0 +1,11 @@
+.redPpanel > .ui-panel-titlebar {
+    background: red;
+    }
+    .center {
+        text-align: center;
+        width: 100%;
+        font-weight: bold;
+    }
+    .ui-datatable .ui-datatable-thead > tr > th {
+        background: red;
+    }

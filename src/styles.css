@@ -1,0 +1,178 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import url('assets/dist/css/AdminLTE.css'); */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+  border-color: #eae3e3;
+}
+
+.user-block {
+  padding: 15px;
+}
+.user-block:last-child {
+  margin-bottom: 5px;
+}
+.user-block:before,
+.user-block:after {
+  content: " ";
+  display: table;
+}
+.user-block:after {
+  clear: both;
+}
+.user-block img {
+  width: 75px;
+  height: 75px;
+  float: left;
+  border: 3px solid #ccc;
+}
+.user-block .username,
+.user-block .usergender,
+.user-block .userage,
+.user-block .useramount,
+.user-block .description,
+.user-block .comment {
+  display: block;
+  margin-left: 90px;
+}
+.user-block .username {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+}
+.user-block .useramount {
+  font-size: 23px;
+  font-weight: 900;
+  margin-top: 10px;
+  border-top: 1px solid #ccc;
+}
+.user-block .userage {
+  color: #444;
+  font-size: 13px;
+  padding-bottom: 0;
+}
+.user-block .description {
+  color: #444;
+  font-size: 13px;
+}
+.user-block.user-block-sm .username,
+.user-block.user-block-sm .description,
+.user-block.user-block-sm .comment {
+  margin-left: 40px;
+}
+.user-block.user-block-sm .username {
+  font-size: 14px;
+}
+.user-block:hover {
+  background: #f7f7f7;
+}
+.img-sm,
+.img-md,
+.img-lg,
+.box-comments .box-comment img,
+.user-block.user-block-sm img {
+  float: left;
+}
+.img-sm,
+.box-comments .box-comment img,
+.user-block.user-block-sm img {
+  width: 30px !important;
+  height: 30px !important;
+}
+.logossss {
+  width: 100px;
+  height: 100px;
+  
+
+  background: url(./assets/img/faviconrsab.ico) center center no-repeat; 
+}
+
+
+  /* 
+  loader */
+  
+  .splash-logo {
+    left: 50%;
+    top: 50%;
+    margin-left: -26px;
+    margin-top: -30px;
+    z-index: 2;
+    position: absolute;
+    width: 54px;
+}
+
+.splash-loader,
+.splash-loader:before,
+.splash-loader:after {
+  left: 50%;
+  top: 50%;
+  margin-left: -45px;
+  margin-top: -45px;
+  position: absolute;
+  vertical-align: middle;
+  background: #3c8dbc;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.splash-loader:before {
+  content: "";
+  animation: bounce 1.5s infinite;
+}
+.splash-loader:after {
+  content: "";
+  animation: bounce 1.5s -0.4s infinite;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    -webkit-transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes bounce {
+  0% {
+    transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    -webkit-transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.splash-screen {
+    background-color: #f3f3f3;
+    height: 100%;
+}
+
+
+.loading-style {
+  /* display: block;
+  margin-left: auto;
+  margin-right: auto; */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}

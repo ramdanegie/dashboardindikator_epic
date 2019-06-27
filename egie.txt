@@ -1,0 +1,9 @@
+---> build
+npm run-script build
+
+---> publish
+copy ke front end
+cp -rf *folder bi-rsab --> front
+
+---> create component
+ng g component folder/filename

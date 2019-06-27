@@ -1,0 +1,61 @@
+.login-page {
+  overflow: hidden;
+  min-height: 100%;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.example-h2 {
+  margin: 10px;
+}
+
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+.example-card{
+  height: 280px;
+}
+.example-margin {
+  margin: 0 10px;
+}
+.mat-card-actions{
+  margin-left: 220px;
+}
+.backGr{
+    width: 100%;
+    float: left;
+    margin-right: -100px;
+    position: relative;
+    background-image:src("assets/img/welcomeScreenNew.jpg");
+}
+.loading-style {
+  /* display: block;
+  margin-left: auto;
+  margin-right: auto; */
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: -50px;
+  margin-left: 100px;
+  height: 100%;
+}

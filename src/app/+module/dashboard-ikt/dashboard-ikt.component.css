@@ -1,0 +1,59 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+  }
+  
+  .example-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .mat-table {
+    overflow: auto;
+    max-height: 500px;
+  }
+  .loading-style {
+    /* display: block;
+    margin-left: auto;
+    margin-right: auto; */
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -100px;
+    margin-left: 710px;
+    height: 100%;
+  }
+  .agm-map {
+    height: 300px;
+  }
+
+  .buttonLuhur{
+    display:inline-block;
+    margin-top:-5px;
+  }
+  .redPpanel > .ui-panel-titlebar {
+    background: red;
+    }
+    .center {
+        text-align: center;
+        /* width: 100%; */
+        font-weight: bold;
+    }
+    .ui-datatable .ui-datatable-thead > tr > th {
+        background: red;
+    }
+    .example-month-picker .mat-calendar-period-button {
+      pointer-events: none;
+    }
+    
+    .example-month-picker .mat-calendar-arrow {
+      display: none;
+    }

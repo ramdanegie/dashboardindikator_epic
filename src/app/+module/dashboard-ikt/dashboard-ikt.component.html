@@ -1,0 +1,174 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<section class="content-header">
+  <h1>
+    Dashboard IKT
+    <!-- <small>{{jamSekarang}}</small> -->
+    <small>
+      <mat-form-field color="accent">
+        <mat-label>Tahun</mat-label>
+        <input matInput [matDatepicker]="dp" [formControl]="date" (dateChange)="loadData($event)">
+        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event,dp)" panelClass="example-year-picker">
+        </mat-datepicker>
+      </mat-form-field>
+    </small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a routerLink="/dashboard-ikt"><i class="fa fa-home"></i>Dashboard </a></li>
+  </ol>
+</section>
+<section class="content">
+  <div class="row">
+    <div *ngFor="let items of listChart">
+      <!-- <div class="col-md-6 col-xs-6">
+        <mk-box header="{{items.title}}" styleClass="box" boxColor="{{items.color}}" headerStyleClass="box-header"
+          [isCollapsable]="true" [isCollapsable]="true">
+            <div [chart]="items.chart"></div>
+        </mk-box>
+      </div> -->
+      <div class="col-md-6 col-xs-6">
+        <div class="{{items.classTitle}}">
+          <div class="box-header">
+            <i class="fa fa-cubes"></i>
+            <h3 class="box-title">{{items.title}}</h3>
+            <div class="box-tools pull-right">
+              <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+                <div class="btn-group">
+                  <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-bars"></i>
+                  </button>
+                  <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                      <a href="#">Add new event</a>
+                    </li>
+                    <li>
+                      <a href="#">Clear events</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                      <a href="#">View calendar</a>
+                    </li>
+                  </ul>
+                </div>
+                <button class="btn btn-default btn-sm" data-widget="collapse">
+                  <i class="fa fa-minus"></i>
+                </button>
+                <button class="btn btn-default btn-sm" data-widget="remove">
+                  <i class="fa fa-times"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="box-body chart-responsive">
+            <div [chart]="items.chart"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 col-xs-12">
+      <div class="box box-info">
+        <div class="box-header">
+          <i class="fa fa-bar-chart"></i>
+          <h3 class="box-title">Rekap Indikator</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <p-panel>
+            <p-header>
+              <div class="ui-helper-clearfix">
+                <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Indikator
+                  Kinerja
+                  Terpilih</span>
+              </div>
+            </p-header>
+            <p-table #dt [columns]="column" [value]="dataSource" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[5,10,20]"
+              [loading]="loading" loadingIcon="fa fa-spinner" [(selection)]="selected">
+              <ng-template pTemplate="caption">
+                <div style="text-align: right">
+                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                  <input type="text" pInputText size="40" placeholder="Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    style="width:auto">
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="width:4em" class="center" rowspan="2"> <span style="font-weight:bold">No</span></th>
+                  <th style="width:25em" class="center" rowspan="2"> <span style="font-weight:bold">Indikator</span></th>
+                  <th style="width:7em" class="center" rowspan="2"> <span style="font-weight:bold">Target</span></th>
+                  <th class="center" colspan="4"><span style="font-weight:bold">Realisasi</span></th>
+                  <th style="width:7em" class="center" rowspan="2"> <span style="font-weight:bold">Total</span></th>
+                  <th style="width:13em" class="center" rowspan="2"> <span style="font-weight:bold">PIC</span></th>
+                </tr>
+                <tr>
+                  <th class="center"> <span style="font-weight:bold">TW. I</span></th>
+                  <th class="center"> <span style="font-weight:bold">TW. II</span></th>
+                  <th class="center"> <span style="font-weight:bold">TW. III</span></th>
+                  <th class="center"> <span style="font-weight:bold">TW. IV</span></th>
+                  <!-- <th class="center"> <span style="font-weight:bold">Mei</span></th>
+                  <th class="center"> <span style="font-weight:bold">Jun</span></th>
+                  <th class="center"> <span style="font-weight:bold">Juli</span></th>
+                  <th class="center"> <span style="font-weight:bold">Agust</span></th>
+                  <th class="center"> <span style="font-weight:bold">Sept</span></th>
+                  <th class="center"> <span style="font-weight:bold">Okt</span></th>
+                  <th class="center"> <span style="font-weight:bold">Nov</span></th>
+                  <th class="center"> <span style="font-weight:bold">Des</span></th> -->
+
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-groupData let-rowIndex="rowIndex">
+                <tr>
+                  <td>{{rowIndex +1}}</td>
+                  <td>{{groupData.namaindikator}}</td>
+                  <td>{{groupData.jantarget}}</td>
+                  <td>{{groupData.tw1}}</td>
+                  <td>{{groupData.tw2}}</td>
+                  <td>{{groupData.tw3}}</td>
+                  <td>{{groupData.tw4}}</td>
+                  <!-- <td>{{groupData.mei}}</td>
+                  <td>{{groupData.jun}}</td>
+                  <td>{{groupData.jul}}</td>
+                  <td>{{groupData.ags}}</td>
+                  <td>{{groupData.sep}}</td>
+                  <td>{{groupData.okt}}</td>
+                  <td>{{groupData.nov}}</td>
+                  <td>{{groupData.des}}</td> -->
+                  <td>{{groupData.totalcapaian}}</td>
+                  <td>{{groupData.pic}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </p-panel>
+        </div>
+      </div>
+    </div>
+    <p-progressSpinner *ngIf="showLoading" class="loading-style"></p-progressSpinner>
+  </div>
+</section>

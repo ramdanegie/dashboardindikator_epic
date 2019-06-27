@@ -1,0 +1,253 @@
+<!-- <p-growl class="growlMessage"  [style]="{baseZIndex: '999999'}"position="top-left"></p-growl> -->
+<section class="content-header">
+</section>
+<section class="content">
+  <div class="row">
+    <div class="col-md-12 col-xs-12">
+      <div class="box box-info">
+        <div class="box-header">
+          <i class="fa fa fa-code-fork"></i>
+          <h3 class="box-title">10 Besar Penyakit</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <button class="btn btn-default btn-sm" (click)="showAndHide()" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive" id="boxCollapse">
+          <p-panel>
+            <p-header>
+              <div class="ui-helper-clearfix">
+                <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Daftar
+                  10 Besar Penyakit</span>
+              </div>
+            </p-header>
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12 ui-md-3">
+                <label for="input">Tahun</label>
+                <p-calendar [(ngModel)]="tahun" [showIcon]="true" pTooltip="Tahun" tooltipPosition="top" view="month"
+                  dateFormat="yy" dataType="string" [yearNavigator]="true" [monthNavigator]="false" yearRange="2000:2030"></p-calendar>
+                <!-- <p-calendar [(ngModel)]="tanggal" [showIcon]="true" dateFormat="dd-mm-yy"></p-calendar> -->
+              </div>
+              <div class="ui-g-12 ui-md-1" style="margin-top:25px">
+                <button pButton (click)="Cari()" label="Cari" icon="fa fa-search"></button>
+              </div>
+            </div>
+            <p-panel header="Daftar 10 Besar Penyakit" [toggleable]="true" [collapsed]="false">
+              <p-table #dt2 [columns]="column" [value]="dataSource" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[5,10,20]"
+                [loading]="loading" loadingIcon="fa fa-spinner" expandableRows="true" dataKey="kode_kirim">
+                <ng-template pTemplate="caption">
+                  <div style="text-align: right">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="40" placeholder="Filter" (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                      style="width:auto">
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th style="width: 3em"></th>
+                    <th style="width:4em">No</th>
+                    <th *ngFor="let col of columns">
+                      {{col.header}}
+                    </th>
+                    <th style="width:15em"></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-index2="rowIndex+1" let-rowData let-columns="columns">
+                  <tr>
+                    <td>
+                      <a href="#" [pRowToggler]="rowData">
+                        <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                      </a>
+
+                    </td>
+                    <td>
+                      {{index2}}
+                    </td>
+                    <td *ngFor="let col of columns">
+                      {{rowData[col.field]}}
+                    </td>
+                    <td>
+                      <button pButton icon="fa fa-edit" label="Rubah" (click)="Ubah(rowData)"></button>
+                      &nbsp;
+                      <button pButton icon="fa fa-trash-o" label="Hapus" (click)="Hapus(rowData)"></button>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="summary" let-rowData>
+                  <div style="text-align:left">
+                    <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Tambah"></button>
+                  </div>
+                </ng-template>
+                <ng-template let-abc pTemplate="rowexpansion">
+                  <tr>
+                    <td [attr.colspan]="columns.length + 1">
+                    </td>
+                  </tr>
+                  <!-- <p-table [value]="abc.details">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th style="width:40em">ICD</th>
+                        <th style="width:10em">Jumlah</th>
+
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-index="rowIndex+1" let-rowData let-columns="columns">
+                      <tr>
+                        <td>{{rowData.diagnosa}}</td>
+                        <td>{{rowData.jumlah}}</td>
+
+                      </tr>
+                    </ng-template>
+                  </p-table> -->
+                </ng-template>
+              </p-table>
+
+            </p-panel>
+            <!-- <p-table #dt [columns]="column" [value]="dataSource" [rows]="5" [paginator]="true" [rowsPerPageOptions]="[5,10,20]"
+              [loading]="loading" loadingIcon="fa fa-spinner" [(selection)]="selected">
+              <ng-template pTemplate="caption">
+                <div style="text-align: right">
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th style="width:4em">No</th>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                  </th>
+                  <th style="width:15em"></th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-index="rowIndex+1" let-rowData let-columns="columns">
+                <tr>
+                  <td>
+                    {{index}}
+                  </td>
+                  <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                  </td>
+                  <td>
+                    <button pButton icon="fa fa-edit" label="Rubah" (click)="Ubah(rowData)"></button>
+                    &nbsp;
+                    <button pButton icon="fa fa-trash-o" label="Hapus" (click)="Hapus(rowData)"></button>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="summary" let-rowData>
+                <div style="text-align:left">
+                  <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Tambah"></button>
+                </div>
+              </ng-template>
+            </p-table> -->
+          </p-panel>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <p-dialog header="" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="false" [width]="1000"
+    [minWidth]="80" [minY]="30" [maximizable]="true" [baseZIndex]="9012" [positionTop]="30" appendTo="body">
+    <div class="ui-g-12">
+      <div class="ui-g ui-fluid">
+        <form [formGroup]="formTambah">
+          <div class="ui-g-12">
+            <p-fieldset legend="Masukan Data">
+              <div class="ui-g-12 ">
+                <div class="ui-g-12 ui-md-4" style="margin-top:-15px" *ngIf="showKode">
+                  <label for="input">Kode</label>
+                  <input type="text" formControlName="kode" pInputText disabled />
+                </div>
+                <div class="ui-g-12 ui-md-6" style="margin-top:-15px">
+                  <label for="input">Bulan</label>
+                  <p-calendar formControlName="bulan" [showIcon]="true" pTooltip="Tahun" tooltipPosition="top" view="month"
+                    dateFormat="mm-yy" [yearNavigator]="true" [monthNavigator]="false" yearRange="2000:2030"></p-calendar>
+
+                </div>
+                <div class="ui-g-12 ui-md-6" style="margin-top:-15px">
+                  <!-- <div class="ui-g-12 ui-md-12">
+                    <label for="input">Jenis</label>
+                  </div> -->
+                  <div class="ui-g-12 ui-md-12">
+                    <div class="ui-g-12 ui-md-6">
+                      <p-radioButton name="groupname" label="Rawat Jalan" value="rawatjalan" formControlName="rawatjalan"></p-radioButton>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                      <p-radioButton name="groupname" label="Rawat Inap" value="rawatinap" formControlName="rawatinap"></p-radioButton>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ui-g-12 ">
+                <div class="ui-g-12 ui-md-1" *ngIf="showKode">
+                  <label for="input">No</label>
+                  <input type="text" formControlName="nomor" pInputText disabled />
+                </div>
+                <div class="ui-g-12 ui-md-4">
+                  <label for="input">ICD</label>
+                  <p-autoComplete formControlName="kode_icd" placeholder="Cari Kode / Nama" [minLength]="1"
+                    [suggestions]="listICD_" (completeMethod)="getICD($event)" field="diagnosa"></p-autoComplete>
+                </div>
+                <div class="ui-g-12 ui-md-2">
+                  <label for="input">Jumlah</label>
+                  <input type="text" uppercase formControlName="jumlah" pInputText pKeyFilter="int" />
+                </div>
+                <div class="ui-g-12 ui-md-2" style="margin-top:25px">
+                  <button pButton label="Tambah" icon="fa fa-plus" class="ui-button-success" (click)="add()"></button>
+                </div>
+                <div class="ui-g-12 ui-md-2" style="margin-top:25px">
+                  <button pButton label="Hapus" icon="fa fa-trash-o" class="ui-button-danger" (click)="del()"></button>
+                </div>
+                <div class="ui-g-12 ui-md-2" style="margin-top:25px">
+                  <button pButton label="Batal" icon="fa fa-close" class="ui-button-primary" (click)="batal()"></button>
+                </div>
+              </div>
+              <div class="ui-g-12">
+                <p-table #dt [columns]="columnICD" [value]="dataSourceICD" [rows]="5" [paginator]="true"
+                  [rowsPerPageOptions]="[5,10,20]" [loading]="loading" loadingIcon="fa fa-spinner" selectionMode="single"
+                  [(selection)]="selectedDiagnosa" (onRowSelect)="onRowSelect($event)">
+                  <ng-template pTemplate="caption">
+                    <div style="text-align: right">
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th style="width:4em">No</th>
+                      <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                        {{col.header}}
+                      </th>
+
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-index="rowIndex+1" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData">
+                      <td>
+                        {{index}}
+                      </td>
+                      <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                      </td>
+
+                    </tr>
+                  </ng-template>
+
+                </p-table>
+              </div>
+            </p-fieldset>
+          </div>
+          <div class="ui-g-12">
+            <div class="ui-g-3 ui-g-offset-6">
+              <button pButton type="submit" label="Simpan" (click)="simpan()" icon="fa fa-save"></button>
+            </div>
+            <div class="ui-g-3">
+              <button pButton type="button" (click)="displayDialog = false" label="Tutup" icon="fa fa-angle-left"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-dialog>
+
+</section>

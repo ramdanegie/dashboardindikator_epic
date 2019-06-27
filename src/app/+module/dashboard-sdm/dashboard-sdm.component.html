@@ -1,0 +1,470 @@
+<p-growl [style]="{marginTop: '80px'}" position="top-left"></p-growl>
+<section class="content-header">
+  <h1>
+    SDM
+    <small>{{now |date}}</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a routerLink="/dashboard-sdm"><i class="fa fa-home"></i>Dashboard SDM</a></li>
+    <!-- <li class="active">Dashboard</li> -->
+  </ol>
+</section>
+<div class="col-md-4 col-xs-12">
+  <mk-box-small header="{{totalPaegawai}}" backgroundColor="aqua" iconStyleClass="fa fa-user">
+    <mk-box-small-content>Pegawai</mk-box-small-content>
+    <mk-box-small-footer>
+      <a routerLink="/">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </mk-box-small-footer>
+  </mk-box-small>
+</div>
+<div class="col-md-4 col-xs-12">
+  <mk-box-small header="{{totalAktif}}" backgroundColor="green" iconStyleClass="fa fa-user-plus">
+    <mk-box-small-content>Aktif</mk-box-small-content>
+    <mk-box-small-footer>
+      <a routerLink="/">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </mk-box-small-footer>
+  </mk-box-small>
+</div>
+<div class="col-md-4 col-xs-12">
+  <mk-box-small header="{{totalNonAktif}}" backgroundColor="yellow" iconStyleClass="fa fa-user-md">
+    <mk-box-small-content>Non Aktif</mk-box-small-content>
+    <mk-box-small-footer>
+      <a routerLink="/">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </mk-box-small-footer>
+  </mk-box-small>
+</div>
+<!-- <div class="col-md-3 col-xs-12">
+  <mk-box-small header="{{totalPensiun}}" backgroundColor="red" iconStyleClass="fa fa-calendar">
+    <mk-box-small-content>Pensiun</mk-box-small-content>
+    <mk-box-small-footer>
+      <a routerLink="/">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </mk-box-small-footer>
+  </mk-box-small>
+</div> -->
+<section class="content">
+  <div class="row">
+    <div class="col-md-6 col-xs-6">
+      <div class="box box-info">
+        <div class="box-header">
+          <i class="fa fa-user"></i>
+          <h3 class="box-title">Status Pegawai</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <div [chart]="chartStatusPegawai"></div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-xs-6">
+      <div class="box box-success">
+        <div class="box-header">
+          <i class="fa fa-user"></i>
+          <h3 class="box-title">Kelompok Jabatan</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <div [chart]="chartKelompokJabatan"></div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-xs-6">
+      <div class="box box-primary">
+        <div class="box-header">
+          <i class="fa fa-user"></i>
+          <h3 class="box-title">Jenis Kelamin</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <div [chart]="chartJK"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-xs-6">
+      <div class="box box-danger">
+        <div class="box-header">
+          <i class="fa fa-user"></i>
+          <h3 class="box-title">Unit Kerja Pegawai</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <div [chart]="chartUnitKerja"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+
+
+    <div class="col-md-12 col-xs-12">
+      <div class="box box-danger">
+        <div class="box-header">
+          <i class="fa fa-user"></i>
+          <h3 class="box-title">Usia</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <div [chart]="chartUsia"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-xs-6">
+      <div class="box box-warning">
+        <div class="box-header">
+          <i class="fa fa-user-md"></i>
+          <h3 class="box-title">Layanan Dokter</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm"  data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+
+          <p-panel>
+            <p-header>
+              <div class="ui-helper-clearfix">
+                <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Detail Layanan
+                  Dokter</span>
+                <!-- <p-splitButton [style]="{'float':'right'}" label="Save" icon="pi pi-check" (onClick)="save()" [model]="items"></p-splitButton> -->
+              </div>
+              <!-- <div class="ui-helper-clearfix">
+                <div class="ui-inputgroup" [style]="{'float':'right'}">
+                  <input type="text" pInputText placeholder="Cari">
+                  <button pButton type="button" icon="pi pi-search" class="ui-button-success" (input)="dt.filterGlobal($event.target.value, 'contains')"></button>
+                </div>
+              </div> -->
+            </p-header>
+
+            <p-table #dt [columns]="cols" [value]="dataSourceLayanan" [rows]="5" [paginator]="true"
+              [rowsPerPageOptions]="[5,10,20]" [loading]="loadingLayananGrid" loadingIcon="fa fa-spinner">
+              <ng-template pTemplate="caption">
+                <div style="text-align: right">
+                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                  <input type="text" pInputText size="40" placeholder="Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    style="width:auto">
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th style="width:4em">No</th>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <!-- <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon> -->
+
+                  </th>
+                  <th style="width:8em"></th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-index="rowIndex+1" let-rowData let-columns="columns">
+                <tr>
+                  <td>
+                    {{index}}
+                  </td>
+                  <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                  </td>
+                  <td>
+                    <button pButton icon="pi pi-search" label="Detail" (click)="selectedGridDokter(rowData)"></button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+            <p-dialog header="Rincian Layanan Dokter" [(visible)]="showDetailDokter" [modal]="true" [responsive]="true"
+              [width]="1200" [minWidth]="100" [minY]="50" [maximizable]="true" [baseZIndex]="10000" [positionTop]="100"
+              appendTo="body">
+              <p-table #tb [columns]="columnPopupLayanan" [value]="dataSourceLayananDetails" [rows]="5" [paginator]="true"
+                [rowsPerPageOptions]="[5,10,20]" [loading]="loading" [lazy]="false" loadingIcon="fa fa-spinner">
+                <ng-template pTemplate="caption">
+                  <div style="text-align: right">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="40" placeholder="Filter" (input)="tb.filterGlobal($event.target.value, 'contains')"
+                      style="width:auto">
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th style="width:4em">No</th>
+                    <th *ngFor="let col of columns">
+                      {{col.header}}
+                    </th>
+
+                  </tr>
+                  <!-- <tr>
+                    <th></th>
+                    <th class="ui-p-1">Year</th>
+                    <th class="ui-p-1">Brand</th>
+                    <th class="ui-p-6">Color</th>
+                  </tr> -->
+                </ng-template>
+                <ng-template pTemplate="body" let-index2="rowIndex+1" let-rowData let-columns="columns">
+                  <tr>
+                    <td>
+                      {{index2}}
+                    </td>
+                    <td *ngFor="let col of columns">
+                      {{rowData[col.field]}}
+                    </td>
+                    <!-- <td>
+                      <button pButton icon="pi pi-search" (click)="selectedGridDokter(rowData)"></button>
+                    </td> -->
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                  <tr>
+                    <td colspan="8">Total</td>
+                    <!-- <td>{{totaltarif}}</td> -->
+                    <!-- <td>{{jumlahna}}</td> -->
+                    <td>{{totalTotal}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </p-dialog>
+            <!-- <p-table [columns]="cols" [value]="dataSourceLayanan" selectionMode="single" [(selection)]="selectedCar1"
+              [rows]="5" [paginator]="true" [totalRecords]="totalRecords" [rowsPerPageOptions]="[5,10,20]" [loading]="loading"
+              loadingIcon="fa fa-spinner" expandableRows="true">
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th *ngFor="let col of columns">
+                    {{col.header}}
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                  <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                  </td>
+                  <td class="ui-p-1" >
+                    <button pButton icon="pi pi-search" (click)="selectCarWithButton(rowData)"></button>
+                </td>
+                </tr>
+              </ng-template>
+
+            </p-table> -->
+          </p-panel>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-6">
+      <div class="box box-primary">
+        <div class="box-header">
+          <i class="fa fa-user"></i>
+          <h3 class="box-title">Pendidikan</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <div [chart]="chartPendidikan"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="ui-g-12">
+      <mk-box header="Realisasi Pendapatan" styleClass="box" boxColor="#8a2be2" headerStyleClass="box-header">
+  
+      </mk-box>
+    </div>
+    <div class="ui-g-6">
+      <mk-box header="Trend Pendapatan" styleClass="box" boxColor="#ff288d" headerStyleClass="box-header">
+  
+      </mk-box>
+    </div>
+    <div class="ui-g-6">
+      <mk-box header="Penerimaan" styleClass="box" boxColor="#ffc300" headerStyleClass="box-header">
+      </mk-box>
+    </div> -->
+
+</section>

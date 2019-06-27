@@ -1,0 +1,7 @@
+.growlMessage {
+/* margin-top: 10px; */
+/* position: fixed;                  */
+position: fixed;
+z-index: 999999;
+pointer-events: none;
+}

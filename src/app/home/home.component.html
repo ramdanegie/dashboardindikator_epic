@@ -1,0 +1,851 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<section class="content-header">
+  <h1>
+    Dashboard
+    <!-- <span class="static-top" style="margin-top: 200px" id="timer">{{jamSekarang}}</span> -->
+    <!-- <small>{{now | date}}</small> -->
+    <!-- <small>{{jamSekarang}}</small> -->
+    <small>
+        <mat-form-field color="accent">
+            <mat-label>Tahun</mat-label>
+          <input matInput [matDatepicker]="dp" [formControl]="date" (dateChange)="loadData($event)">
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event,dp)" panelClass="example-year-picker">
+          </mat-datepicker>
+        </mat-form-field>
+ 
+    </small>
+
+  </h1>
+  <!-- <div class="ui-g-12 ui-md-12"> -->
+  <!-- <label for="input">Tahun</label> -->
+
+  <!-- </div> -->
+  <ol class="breadcrumb">
+    <li><a routerLink="/"><i class="fa fa-home"></i>Dashboard </a></li>
+  </ol>
+</section>
+<section class="content">
+
+  <div class="row">
+    <div class="col-md-6 col-xs-6">
+      <div class="box box-info">
+        <div class="box-header">
+          <i class="fa fa-bar-chart"></i>
+          <h3 class="box-title">Indikator Kepatuhan Terhadap <i>Clinical Pathway </i></h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <div [chart]="chartKepatuhanClinicalPathway"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-6">
+      <div class="box box-primary">
+        <div class="box-header">
+          <i class="fa fa-bar-chart"></i>
+          <h3 class="box-title">Kepatuhan penggunaan Formularium Nasional (Fornas) </h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <div [chart]="chartFormularium"></div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-6">
+      <div class="box box-warning">
+        <div class="box-header">
+          <i class="fa fa-bar-chart"></i>
+          <h3 class="box-title">Persentase Kejadian Pasien Jatuh</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <div [chart]="chartJatuh"></div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-6">
+      <div class="box box-success">
+        <div class="box-header">
+          <i class="fa fa-bar-chart"></i>
+          <h3 class="box-title">Infeksi Daerah Operasi (IDO)</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <div [chart]="chartIDO"></div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-6">
+      <div class="box box-danger">
+        <div class="box-header">
+          <i class="fa fa-bar-chart"></i>
+          <h3 class="box-title"><i>Ventilator Associated Pneumonia</i> (VAP) </h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <div [chart]="chartVAP"></div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-6">
+      <div class="box box-default">
+        <div class="box-header">
+          <i class="fa fa-bar-chart"></i>
+          <h3 class="box-title">Kejadian Kematian Ibu Saat Persalinan k/ Pendarahan</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <div [chart]="chartKejadianPendarahan"></div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-6">
+      <div class="box box-warning">
+        <div class="box-header">
+          <i class="fa fa-bar-chart"></i>
+          <h3 class="box-title">Kejadian Kematian Ibu Saat Persalinan k/ Sepsis</h3>
+          <div class="box-tools pull-right">
+            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+              <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li>
+                    <a href="#">Add new event</a>
+                  </li>
+                  <li>
+                    <a href="#">Clear events</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">View calendar</a>
+                  </li>
+                </ul>
+              </div>
+              <button class="btn btn-default btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-default btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+
+            </div>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <div [chart]="chartSepsis"></div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-6">
+      <div class="box box-info">
+        <div class="box-header">
+          <i class="fa fa-bar-chart"></i>
+          <h3 class="box-title">Kemampuan menangani BBLSR < 1500 gr</h3> <div class="box-tools pull-right">
+              <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+                <div class="btn-group">
+                  <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-bars"></i>
+                  </button>
+                  <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                      <a href="#">Add new event</a>
+                    </li>
+                    <li>
+                      <a href="#">Clear events</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                      <a href="#">View calendar</a>
+                    </li>
+                  </ul>
+                </div>
+                <button class="btn btn-default btn-sm" data-widget="collapse">
+                  <i class="fa fa-minus"></i>
+                </button>
+                <button class="btn btn-default btn-sm" data-widget="remove">
+                  <i class="fa fa-times"></i>
+                </button>
+
+              </div>
+        </div>
+      </div>
+      <div class="box-body chart-responsive">
+        <div [chart]="chartBBLSR"></div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xs-6">
+    <div class="box box-danger">
+      <div class="box-header">
+        <i class="fa fa-bar-chart"></i>
+        <h3 class="box-title">Tindakan Operasi Di Ruang NICU</h3>
+        <div class="box-tools pull-right">
+          <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+            <div class="btn-group">
+              <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bars"></i>
+              </button>
+              <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                  <a href="#">Add new event</a>
+                </li>
+                <li>
+                  <a href="#">Clear events</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">View calendar</a>
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn-default btn-sm" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+            <button class="btn btn-default btn-sm" data-widget="remove">
+              <i class="fa fa-times"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <div class="box-body chart-responsive">
+        <div [chart]="chartTindakanOperasi"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xs-6">
+    <div class="box box-success">
+      <div class="box-header">
+        <i class="fa fa-bar-chart"></i>
+        <h3 class="box-title">Ketepatan Identifikasi Pasien</h3>
+        <div class="box-tools pull-right">
+          <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+            <div class="btn-group">
+              <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bars"></i>
+              </button>
+              <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                  <a href="#">Add new event</a>
+                </li>
+                <li>
+                  <a href="#">Clear events</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">View calendar</a>
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn-default btn-sm" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+            <button class="btn btn-default btn-sm" data-widget="remove">
+              <i class="fa fa-times"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <div class="box-body chart-responsive">
+        <div [chart]="chartKetepatanIndeksiPasien"></div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xs-6">
+    <div class="box box-danger">
+      <div class="box-header">
+        <i class="fa fa-bar-chart"></i>
+        <h3 class="box-title">Kecepatan Respon Terhadap Komplain (KRK)</h3>
+        <div class="box-tools pull-right">
+          <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+            <div class="btn-group">
+              <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bars"></i>
+              </button>
+              <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                  <a href="#">Add new event</a>
+                </li>
+                <li>
+                  <a href="#">Clear events</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">View calendar</a>
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn-default btn-sm" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+            <button class="btn btn-default btn-sm" data-widget="remove">
+              <i class="fa fa-times"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <div class="box-body chart-responsive">
+        <div [chart]="chartKRK"></div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xs-6">
+    <div class="box box-primary">
+      <div class="box-header">
+        <i class="fa fa-bar-chart"></i>
+        <h3 class="box-title"><i>Emergency Response Time</i> 2 (ERT)</h3>
+        <div class="box-tools pull-right">
+          <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+            <div class="btn-group">
+              <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bars"></i>
+              </button>
+              <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                  <a href="#">Add new event</a>
+                </li>
+                <li>
+                  <a href="#">Clear events</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">View calendar</a>
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn-default btn-sm" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+            <button class="btn btn-default btn-sm" data-widget="remove">
+              <i class="fa fa-times"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <div class="box-body chart-responsive">
+        <div [chart]="chartERT"></div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xs-6">
+    <div class="box box-info">
+      <div class="box-header">
+        <i class="fa fa-bar-chart"></i>
+        <h3 class="box-title">Waktu Tunggu Rawat Jalan (WTRJ)</h3>
+        <div class="box-tools pull-right">
+          <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+            <div class="btn-group">
+              <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bars"></i>
+              </button>
+              <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                  <a href="#">Add new event</a>
+                </li>
+                <li>
+                  <a href="#">Clear events</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">View calendar</a>
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn-default btn-sm" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+            <button class="btn btn-default btn-sm" data-widget="remove">
+              <i class="fa fa-times"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <div class="box-body chart-responsive">
+        <div [chart]="chartWTRJ"></div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xs-6">
+    <div class="box box-success">
+      <div class="box-header">
+        <i class="fa fa-bar-chart"></i>
+        <h3 class="box-title">Waktu Tunggu Operasi Elektif (WTE)</h3>
+        <div class="box-tools pull-right">
+          <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+            <div class="btn-group">
+              <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bars"></i>
+              </button>
+              <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                  <a href="#">Add new event</a>
+                </li>
+                <li>
+                  <a href="#">Clear events</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">View calendar</a>
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn-default btn-sm" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+            <button class="btn btn-default btn-sm" data-widget="remove">
+              <i class="fa fa-times"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <div class="box-body chart-responsive">
+        <div [chart]="chartWTE"></div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xs-6">
+    <div class="box box-danger">
+      <div class="box-header">
+        <i class="fa fa-bar-chart"></i>
+        <h3 class="box-title">Waktu Tunggu Pelayanan Radiologi (WTPR)</h3>
+        <div class="box-tools pull-right">
+          <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+            <div class="btn-group">
+              <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bars"></i>
+              </button>
+              <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                  <a href="#">Add new event</a>
+                </li>
+                <li>
+                  <a href="#">Clear events</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">View calendar</a>
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn-default btn-sm" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+            <button class="btn btn-default btn-sm" data-widget="remove">
+              <i class="fa fa-times"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <div class="box-body chart-responsive">
+        <div [chart]="chartWTPR"></div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xs-6">
+    <div class="box box-default">
+      <div class="box-header">
+        <i class="fa fa-bar-chart"></i>
+        <h3 class="box-title">Waktu Tunggu Pelayanan Laboratorium (WTPL)</h3>
+        <div class="box-tools pull-right">
+          <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+            <div class="btn-group">
+              <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bars"></i>
+              </button>
+              <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                  <a href="#">Add new event</a>
+                </li>
+                <li>
+                  <a href="#">Clear events</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">View calendar</a>
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn-default btn-sm" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+            <button class="btn btn-default btn-sm" data-widget="remove">
+              <i class="fa fa-times"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <div class="box-body chart-responsive">
+        <div [chart]="chartWTPL"></div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xs-6">
+    <div class="box box-primary">
+      <div class="box-header">
+        <i class="fa fa-bar-chart"></i>
+        <h3 class="box-title">Pengembalian Rekam Medik Lengkap dlm waktu 24 jam (PRM)</h3>
+        <div class="box-tools pull-right">
+          <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+            <div class="btn-group">
+              <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bars"></i>
+              </button>
+              <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                  <a href="#">Add new event</a>
+                </li>
+                <li>
+                  <a href="#">Clear events</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">View calendar</a>
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn-default btn-sm" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+            <button class="btn btn-default btn-sm" data-widget="remove">
+              <i class="fa fa-times"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <div class="box-body chart-responsive">
+        <div [chart]="chartPRM"></div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xs-6">
+    <div class="box box-info">
+      <div class="box-header">
+        <i class="fa fa-bar-chart"></i>
+        <h3 class="box-title">Rasio Pendapatan PNBP terhadap Biaya Operasional (PB)</h3>
+        <div class="box-tools pull-right">
+          <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+            <div class="btn-group">
+              <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bars"></i>
+              </button>
+              <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                  <a href="#">Add new event</a>
+                </li>
+                <li>
+                  <a href="#">Clear events</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">View calendar</a>
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn-default btn-sm" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+            <button class="btn btn-default btn-sm" data-widget="remove">
+              <i class="fa fa-times"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <div class="box-body chart-responsive">
+        <div [chart]="chartPB"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 col-xs-12">
+    <div class="box box-info">
+      <div class="box-header">
+        <i class="fa fa-bar-chart"></i>
+        <h3 class="box-title">Rekap Indikator</h3>
+        <div class="box-tools pull-right">
+          <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+            <div class="btn-group">
+              <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bars"></i>
+              </button>
+              <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                  <a href="#">Add new event</a>
+                </li>
+                <li>
+                  <a href="#">Clear events</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">View calendar</a>
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn-default btn-sm" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+            <button class="btn btn-default btn-sm" data-widget="remove">
+              <i class="fa fa-times"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <div class="box-body chart-responsive">
+        <p-panel>
+          <p-header>
+            <div class="ui-helper-clearfix">
+              <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Indikator Kinerja
+                Individu Direktur Utama</span>
+            </div>
+          </p-header>
+          <p-table #dt [columns]="column" [value]="dataSource" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[5,10,20]"
+            [loading]="loading" loadingIcon="fa fa-spinner" [(selection)]="selected">
+            <ng-template pTemplate="caption">
+              <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="40" placeholder="Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                  style="width:auto">
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="center" rowspan="2"> <span style="font-weight:bold">No</span></th>
+                <th style="width:25em" class="center" rowspan="2"> <span style="font-weight:bold">Indikator</span></th>
+                <th style="width:7em" class="center" rowspan="2"> <span style="font-weight:bold">Target</span></th>
+                <th class="center" colspan="12"><span style="font-weight:bold">Realisasi</span></th>
+                <th style="width:7em" class="center" rowspan="2"> <span style="font-weight:bold">Total</span></th>
+                <th style="width:13em" class="center" rowspan="2"> <span style="font-weight:bold">PIC</span></th>
+              </tr>
+              <tr>
+                <th class="center"> <span style="font-weight:bold">Jan</span></th>
+                <th class="center"> <span style="font-weight:bold">Feb</span></th>
+                <th class="center"> <span style="font-weight:bold">Mar</span></th>
+                <th class="center"> <span style="font-weight:bold">Apr</span></th>
+                <th class="center"> <span style="font-weight:bold">Mei</span></th>
+                <th class="center"> <span style="font-weight:bold">Jun</span></th>
+                <th class="center"> <span style="font-weight:bold">Juli</span></th>
+                <th class="center"> <span style="font-weight:bold">Agust</span></th>
+                <th class="center"> <span style="font-weight:bold">Sept</span></th>
+                <th class="center"> <span style="font-weight:bold">Okt</span></th>
+                <th class="center"> <span style="font-weight:bold">Nov</span></th>
+                <th class="center"> <span style="font-weight:bold">Des</span></th>
+
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-groupData let-rowIndex="rowIndex">
+              <tr>
+                <td>{{rowIndex +1}}</td>
+                <td>{{groupData.namaindikator}}</td>
+                <td>{{groupData.jantarget}}</td>
+                <td>{{groupData.jan}}</td>
+                <td>{{groupData.feb}}</td>
+                <td>{{groupData.mar}}</td>
+                <td>{{groupData.apr}}</td>
+                <td>{{groupData.mei}}</td>
+                <td>{{groupData.jun}}</td>
+                <td>{{groupData.jul}}</td>
+                <td>{{groupData.ags}}</td>
+                <td>{{groupData.sep}}</td>
+                <td>{{groupData.okt}}</td>
+                <td>{{groupData.nov}}</td>
+                <td>{{groupData.des}}</td>
+                <td>{{groupData.totalcapaian}}</td>
+                <td>{{groupData.pic}}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-panel>
+      </div>
+    </div>
+  </div>
+  <p-progressSpinner *ngIf="showLoading" class="loading-style"></p-progressSpinner>
+  </div>
+</section>
