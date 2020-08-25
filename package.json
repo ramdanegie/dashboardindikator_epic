@@ -58,7 +58,7 @@
     "bower": "^1.8.4",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
-    "highcharts": "^6.1.4",
+    "highcharts": "^8.2.0",
     "highcharts-drilldown": "^0.1.7",
     "highcharts-map": "^0.1.7",
     "ionicons": "^2.0.1",
